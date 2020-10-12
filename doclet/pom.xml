@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <parent>
+      <groupId>org.goots.hiderdoclet</groupId>
+      <artifactId>parent</artifactId>
+      <version>1-SNAPSHOT</version>
+   </parent>
+
+   <artifactId>doclet</artifactId>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-api</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>ch.qos.logback</groupId>
+         <artifactId>logback-classic</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>ch.qos.logback</groupId>
+         <artifactId>logback-core</artifactId>
+      </dependency>
+   </dependencies>
+
+   <build>
+     <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <phase>none</phase>
+              </execution>
+            </executions>
+          </plugin>
+            <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-shade-plugin</artifactId>
+               <version>3.2.1</version>
+               <executions>
+                  <execution>
+                     <phase>package</phase>
+                     <goals>
+                        <goal>shade</goal>
+                     </goals>
+                     <configuration>
+                        <artifactSet>
+                           <includes>
+                              <include>org.goots.hiderdoclet:*</include>
+                              <include>org.slf4j:*</include>
+                              <include>ch.qos.logback:*</include>
+                           </includes>
+                        </artifactSet>
+                        <!-- Relocate to avoid SLF4j clash -->
+                        <relocations>
+                           <relocation>
+                              <pattern>org.slf4j</pattern>
+                              <shadedPattern>org.goots.slf4j</shadedPattern>
+                           </relocation>
+                           <relocation>
+                              <pattern>ch.qos.logback</pattern>
+                              <shadedPattern>org.goots.logback</shadedPattern>
+                           </relocation>
+                        </relocations>
+                        <filters>
+                           <filter>
+                              <artifact>*:*:</artifact>
+                              <excludes>
+                                 <exclude>META-INF/*.RSA</exclude>
+                                 <exclude>META-INF/*.SF</exclude>
+                              </excludes>
+                           </filter>
+                        </filters>
+                     </configuration>
+                  </execution>
+               </executions>
+            </plugin>
+         </plugins>
+      </build>
+</project>
