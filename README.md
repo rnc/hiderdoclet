@@ -1,4 +1,7 @@
 
+[![Build Status (Travis CI)](https://travis-ci.com/rnc/hiderdoclet.svg?branch=main)](https://travis-ci.com/rnc/hiderdoclet.svg?branch=main)
+
+
 # JavaDoc Doclet Extension
 
 This doclet adds the capability to ignore arbitrary code if it has been annotated with `@JavadocExclude`.
