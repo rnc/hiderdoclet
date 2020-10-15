@@ -48,15 +48,7 @@ A complete example is
                         <version>1.0</version>
                      </docletArtifact>
                      <additionalJOptions>
-                        <additionalJOption>--add-exports=jdk.javadoc/jdk.javadoc.internal.tool=hiderdoclet</additionalJOption>
-                        <additionalJOption>--add-exports=jdk.compiler/com.sun.tools.javac.parser=hiderdoclet</additionalJOption>
-                        <additionalJOption>--add-exports=jdk.compiler/com.sun.tools.javac.tree=hiderdoclet</additionalJOption>
-                        <additionalJOption>--add-exports=jdk.compiler/com.sun.tools.javac.model=hiderdoclet</additionalJOption>
                         <additionalJOption>-J--add-exports=jdk.javadoc/jdk.javadoc.internal.tool=ALL-UNNAMED</additionalJOption>
-                        <additionalJOption>-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</additionalJOption>
-                        <additionalJOption>-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</additionalJOption>
-                        <additionalJOption>-J--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</additionalJOption>
-
                      </additionalJOptions>
                      <detectJavaApiLink>true</detectJavaApiLink>
                   </configuration>
