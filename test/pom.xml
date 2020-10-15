@@ -7,20 +7,43 @@
    <parent>
       <groupId>org.goots.hiderdoclet</groupId>
       <artifactId>parent</artifactId>
-      <version>1-SNAPSHOT</version>
+      <version>1.0-SNAPSHOT</version>
    </parent>
 
    <artifactId>test</artifactId>
+
+   <properties>
+      <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+      <itPomIncludes>*</itPomIncludes>
+   </properties>
 
    <dependencies>
       <dependency>
          <groupId>org.goots.hiderdoclet</groupId>
          <artifactId>doclet</artifactId>
       </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+      </dependency>
    </dependencies>
 
    <build>
       <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <configuration>
+               <skip>true</skip>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-install-plugin</artifactId>
+            <configuration>
+               <skip>true</skip>
+            </configuration>
+         </plugin>
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
@@ -36,26 +59,74 @@
                         <version>${project.version}</version>
                      </docletArtifact>
                      <additionalJOptions>
-<!--                        <additionalJOption>-J-Dorg.goots.hiderdoclet.debug=true</additionalJOption>-->
-                        <additionalJOption>--add-exports=jdk.javadoc/jdk.javadoc.internal.tool=hiderdoclet</additionalJOption>
-                        <additionalJOption>--add-exports=jdk.compiler/com.sun.tools.javac.parser=hiderdoclet</additionalJOption>
-                        <additionalJOption>--add-exports=jdk.compiler/com.sun.tools.javac.tree=hiderdoclet</additionalJOption>
-                        <additionalJOption>--add-exports=jdk.compiler/com.sun.tools.javac.model=hiderdoclet</additionalJOption>
-                        <additionalJOption>-J--add-exports=jdk.javadoc/jdk.javadoc.internal.tool=ALL-UNNAMED</additionalJOption>
-                        <additionalJOption>-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</additionalJOption>
-                        <additionalJOption>-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</additionalJOption>
-                        <additionalJOption>-J--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</additionalJOption>
+                        <!--<additionalJOption>-J-Dorg.goots.hiderdoclet.debug=true</additionalJOption>-->
 
-<!--                        <additionalJOption>&#45;&#45;add-exports=java.base/java.lang.reflect=hiderdoclet</additionalJOption>-->
+                        <additionalJOption>--add-exports=jdk.javadoc/jdk.javadoc.internal.tool=hiderdoclet
+                        </additionalJOption>
+                        <additionalJOption>--add-exports=jdk.compiler/com.sun.tools.javac.parser=hiderdoclet
+                        </additionalJOption>
+                        <additionalJOption>--add-exports=jdk.compiler/com.sun.tools.javac.tree=hiderdoclet
+                        </additionalJOption>
+                        <additionalJOption>--add-exports=jdk.compiler/com.sun.tools.javac.model=hiderdoclet
+                        </additionalJOption>
 
+                        <additionalJOption>-J--add-exports=jdk.javadoc/jdk.javadoc.internal.tool=ALL-UNNAMED
+                        </additionalJOption>
+                        <additionalJOption>-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED
+                        </additionalJOption>
+                        <additionalJOption>-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED
+                        </additionalJOption>
+                        <additionalJOption>-J--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED
+                        </additionalJOption>
                      </additionalJOptions>
                      <detectJavaApiLink>true</detectJavaApiLink>
-                     <!-- <quiet>true</quiet> -->
-                     <author>false</author>
                   </configuration>
                </execution>
             </executions>
          </plugin>
       </plugins>
    </build>
+
+   <profiles>
+      <profile>
+         <id>run-its</id>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-invoker-plugin</artifactId>
+                  <version>3.2.1</version>
+                  <executions>
+                     <execution>
+                        <id>integration-test</id>
+                        <goals>
+                           <goal>install</goal>
+                           <goal>run</goal>
+                           <goal>verify</goal>
+                        </goals>
+                        <configuration>
+                           <debug>true</debug>
+                           <showErrors>true</showErrors>
+                           <addTestClassPath>true</addTestClassPath>
+                           <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+                           <localRepositoryPath>${localRepositoryPath}</localRepositoryPath>
+                           <projectsDirectory>src/it</projectsDirectory>
+                           <settingsFile>src/it/settings.xml</settingsFile>
+                           <showVersion>true</showVersion>
+                           <!-- <mavenExecutable>mvnDebug</mavenExecutable> -->
+                           <filterProperties>
+                              <localRepositoryPath>${localRepositoryPath}</localRepositoryPath>
+                           </filterProperties>
+                           <pomIncludes>
+                              <pomInclude>${itPomIncludes}/pom.xml</pomInclude>
+                           </pomIncludes>
+                           <postBuildHookScript>verify</postBuildHookScript>
+                        </configuration>
+                     </execution>
+                  </executions>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+   </profiles>
 </project>

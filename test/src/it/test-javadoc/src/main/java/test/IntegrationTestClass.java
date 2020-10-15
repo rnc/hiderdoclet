@@ -1,12 +1,8 @@
-package org.goots.hiderdoclet.doclet.test;
+package test;
 
 import org.goots.hiderdoclet.doclet.JavadocExclude;
 
-/**
- * Just to check the annotation is detected and javadoc works.
- */
-@SuppressWarnings( "unused" )
-public class TestDoc
+public class IntegrationTestClass
 {
     /**
      * Don't include me!
@@ -33,11 +29,10 @@ public class TestDoc
         }
     }
 
-
     @JavadocExclude
     public static class HiddenInnerClass
     {
-        public void innerMethod()
+        public void innerMethodThatIsHidden()
         {
 
         }

@@ -139,7 +139,7 @@ public class DocletEnvironmentProcessor extends DocEnvImpl implements DocletEnvi
     {
         if (checkForAnnotation( e ))
         {
-            logger.info( "Ignoring element {}", e.getSimpleName() );
+            logger.info( "Not selecting element {}", e.getSimpleName() );
             return false;
         }
         return delegate.isSelected( e );

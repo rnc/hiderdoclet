@@ -5,6 +5,7 @@ module hiderdoclet {
 
     requires org.slf4j;
     requires logback.classic;
+    requires logback.core;
 
     exports org.goots.hiderdoclet.doclet;
 }
