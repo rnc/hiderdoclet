@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (C) 2020 Red Hat, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.goots.hiderdoclet.doclet;
+def pomFile = new File( basedir, 'pom.xml' )
+System.out.println( "Slurping POM: ${pomFile.getAbsolutePath()}" )
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+def buildLog = new File( basedir, 'build.log' )
+assert buildLog.text.contains("Ignoring element HiddenInnerClass")
+assert buildLog.text.contains("Ignoring element dummyMethod")
 
-
-@Retention( RetentionPolicy.SOURCE)
-public @interface JavadocExclude
-{
-}
+def docMethod = new File( basedir, 'target/apidocs/test/IntegrationTestClass.html')
+assert docMethod.text.contains("includeMe")
+assert ! docMethod.text.contains("dummyMethod")

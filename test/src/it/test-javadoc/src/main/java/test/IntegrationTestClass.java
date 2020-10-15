@@ -13,13 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.goots.hiderdoclet.doclet;
+package test;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import org.goots.hiderdoclet.doclet.JavadocExclude;
 
-
-@Retention( RetentionPolicy.SOURCE)
-public @interface JavadocExclude
+public class IntegrationTestClass
 {
+    /**
+     * Don't include me!
+     */
+    @JavadocExclude
+    public void dummyMethod()
+    {
+
+    }
+
+    /**
+     * I am a method
+     */
+    public void includeMe()
+    {
+
+    }
+
+    public static class InnerClass
+    {
+        public void innerMethod()
+        {
+
+        }
+    }
+
+    @JavadocExclude
+    public static class HiddenInnerClass
+    {
+        public void innerMethodThatIsHidden()
+        {
+
+        }
+    }
 }
