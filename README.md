@@ -4,14 +4,28 @@
 
 # JavaDoc Doclet Extension
 
-This doclet adds the capability to ignore arbitrary code if it has been annotated with `@JavadocExclude`.
+This is a JDK11 (and above) doclet that adds the capability to ignore arbitrary code if it has been annotated with `@JavadocExclude`.
+
+For example, using the code from [here](https://github.com/rnc/hiderdoclet/blob/main/test/src/main/java/org/goots/hiderdoclet/doclet/test/TestDoc.java#L29):
+
+```
+    /**
+     * Don't include me!
+     */
+    @JavadocExclude
+    public void dummyMethod()
+    {
+
+    }
+
+```
 
 ## Configuration
 
 There is only a single configuration parameter currently: `org.goots.hiderdoclet.debug`. For example to enable debug
 logging for the doclet pass as an additional option to the doclet configuration:
 ```
-                        <additionalJOption>-J-Dorg.goots.hiderdoclet.debug=true</additionalJOption>
+    <additionalJOption>-J-Dorg.goots.hiderdoclet.debug=true</additionalJOption>
 ```
 
 ## Exanple
