@@ -22,11 +22,12 @@ For example, using the code from [here](https://github.com/rnc/hiderdoclet/blob/
 
 ## Configuration
 
-There is only a single configuration parameter currently: `org.goots.hiderdoclet.debug`. For example to enable debug
+There is only a single configuration parameter currently: `org.goots.hiderdoclet.logLevel`. For example to enable debug
 logging for the doclet pass as an additional option to the doclet configuration:
 ```
-    <additionalJOption>-J-Dorg.goots.hiderdoclet.debug=true</additionalJOption>
+    <additionalJOption>-J-Dorg.goots.hiderdoclet.logLevel=debug</additionalJOption>
 ```
+Other supported values are `info` (the default) and `warn`. The value is case insensitive.
 
 ## Exanple
 

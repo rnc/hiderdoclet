@@ -154,7 +154,7 @@ public class DocletEnvironmentProcessor extends DocEnvImpl implements DocletEnvi
     {
         if (checkForAnnotation( e ))
         {
-            logger.info( "Not selecting element {}", e.getSimpleName() );
+            logger.debug( "Not selecting element {}", e.getSimpleName() );
             return false;
         }
         return delegate.isSelected( e );
@@ -212,15 +212,17 @@ public class DocletEnvironmentProcessor extends DocEnvImpl implements DocletEnvi
      */
     private boolean checkForAnnotation(Element e)
     {
-        List<? extends AnnotationMirror> annotationMirrors = e.getAnnotationMirrors();
         boolean result = false;
-
-        if ( annotationMirrors.stream().anyMatch( a -> a.getAnnotationType().toString().equals( "org.goots.hiderdoclet.doclet.JavadocExclude" ) ) )
+        if ( e != null )
         {
-            result = true;
-        }
-        logger.debug( "Looking for annotation in element {} and found {}", e.getSimpleName(), result );
+            List<? extends AnnotationMirror> annotationMirrors = e.getAnnotationMirrors();
 
+            if ( annotationMirrors.stream().anyMatch( a -> a.getAnnotationType().toString().equals( "org.goots.hiderdoclet.doclet.JavadocExclude" ) ) )
+            {
+                result = true;
+            }
+            logger.debug( "Looking for annotation in element {} and found {}", e.getSimpleName(), result );
+        }
         return result;
     }
 }

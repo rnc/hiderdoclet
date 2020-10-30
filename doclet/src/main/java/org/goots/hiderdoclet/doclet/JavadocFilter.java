@@ -46,7 +46,7 @@ public class JavadocFilter extends StandardDoclet
         loggerContext.reset();
 
         PatternLayoutEncoder ple = new PatternLayoutEncoder();
-        ple.setPattern( "%level %logger{36} - %msg%n" );
+        ple.setPattern( "[%level] %logger{36} - %msg%n" );
         ple.setContext( loggerContext );
         ple.start();
 
@@ -57,12 +57,17 @@ public class JavadocFilter extends StandardDoclet
 
         root.addAppender( consoleAppender );
 
-        String logLevel = System.getProperty( "org.goots.hiderdoclet.debug" );
-        if ( "true".equalsIgnoreCase( logLevel ) )
+        String logLevel = System.getProperty( "org.goots.hiderdoclet.logLevel", "info");
+
+        if ( "debug".equalsIgnoreCase( logLevel ) )
         {
             root.setLevel( Level.DEBUG );
         }
-        else
+        else if ("warn".equalsIgnoreCase( logLevel ) )
+        {
+            root.setLevel( Level.WARN );
+        }
+        else if ("info".equalsIgnoreCase( logLevel ) )
         {
             root.setLevel( Level.INFO );
         }
