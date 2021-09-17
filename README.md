@@ -1,5 +1,5 @@
 
-[![Build Status (Travis CI)](https://travis-ci.com/rnc/hiderdoclet.svg?branch=main)](https://travis-ci.com/rnc/hiderdoclet.svg?branch=main)
+[![Actions Status](https://github.com/rnc/hiderdoclet/workflows/CI/badge.svg)](https://github.com/rnc/hiderdoclet/workflows/CI/actions)
 
 
 # JavaDoc Doclet Extension
